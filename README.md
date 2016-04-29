@@ -16,7 +16,7 @@ public static class Lists
 }
 ```
 
-If you see `_left` and `_right` used somewhere with no definition, these are set to the above `Lists.Default`.
+If you see `left` and `right` used somewhere with no definition, these are set to the above `Lists.Default`.
 
 ```csharp
 left = Lists.Default;
@@ -34,16 +34,6 @@ var diff = Lists.Default.Add(2, "New");
 
 var res1 = _comparer.Compare(left, right);
 var res2 = _comparer.Compare(left, diff);
-
-res1.Same.Should().BeTrue();
-res2.Same.Should().BeFalse();
-```
-
-```csharp
-var diff = Lists.Default.Add(2, "New");
-
-var res1 = _comparer.Compare(_left, _right);
-var res2 = _comparer.Compare(_left, diff);
 
 res1.Same.Should().BeTrue();
 res2.Same.Should().BeFalse();
