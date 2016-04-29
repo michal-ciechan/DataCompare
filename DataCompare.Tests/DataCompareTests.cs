@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DataCompare.Tests.TestData;
 using FluentAssertions;
 using MoqqerNamespace;
 using NUnit.Framework;
@@ -9,33 +10,33 @@ namespace DataCompare.Tests
     public class DataCompareTests
     {
         private Moqqer _moq;
-        private DataComparer _subject;
+        private DataComparer _comparer;
 
         [SetUp]
         public void A_TestSetup()
         {
             _moq = new Moqqer();
-            _subject = _moq.Create<DataComparer>();
+            _comparer = _moq.Create<DataComparer>();
         }
 
         [Test]
-        public void Compare_SameArrays_SameTrue()
+        public void Compare_BothDefault_SameTrue()
         {
-            var array1 = new []
-            {
-                new []{ "Key", "Value"},
-                new []{ "1", "Test"},
-            };
+            var left = Lists.Default;
+            var right = Lists.Default;
 
-            var array2 = new []
-            {
-                new []{ "Key", "Value"},
-                new []{ "1", "Test"},
-            };
+            _comparer.Compare(left, right)
+                .Same.Should().BeTrue();
+        }
 
-            var res = _subject.Compare(array1, array2);
+        [Test]
+        public void Compare_LeftHasExtraNewRow_LeftOnlyHasNewRow()
+        {
+            var left = Lists.Default;
+            var right = Lists.Default;
 
-            res.Same.Should().BeTrue();
+            _comparer.Compare(left, right)
+                .Same.Should().BeTrue();
         }
     }
 }

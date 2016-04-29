@@ -4,22 +4,26 @@ namespace DataCompare
 {
     public class DataComparer
     {
-        public CompareResult Compare(IReadOnlyList<IList<string>> array1, IReadOnlyList<IList<string>> array2)
-        {
-            var res = new CompareResult
-            {
-                Same = true
-            };
+        private readonly ISorter<IReadOnlyList<string>> _sorter;
+        private DataComparerConfig _config;
 
-            return res;
+        public DataComparer(ISorter<IReadOnlyList<string>> sorter, DataComparerConfig config)
+        {
+            _sorter = sorter;
+            _config = config;
+        }
+
+        public CompareResult Compare(IReadOnlyList<IReadOnlyList<string>> left, IReadOnlyList<IReadOnlyList<string>> right)
+        {
+            var leftSorted = _sorter.Sort(left);
+            var rightSorted = _sorter.Sort(right);
+
+            return CompareSorted(leftSorted, rightSorted);
+        }
+
+        private CompareResult CompareSorted(IReadOnlyList<IReadOnlyList<string>> left, IReadOnlyList<IReadOnlyList<string>> right)
+        {
+            throw new System.NotImplementedException();
         }
     }
-
-    public class CompareResult
-    {
-        public bool Same { get; set; }
-        public IReadOnlyList<IReadOnlyList<string>> Additional { get; set; }
-        public IReadOnlyList<IReadOnlyList<string>> Missing { get; set; }
-    }
-
 }
