@@ -22,6 +22,9 @@ If you see `left` and `right` used somewhere with no definition, these are set t
 left = Lists.Default;
 right = Lists.Default;
 ```
+# Row Collection
+
+
 
 # Compare Result Information
 
