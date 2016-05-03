@@ -1,5 +1,25 @@
 # DataCompare
+
 Compare Lists / Tabular data with rich set of results for reporting.
+
+# Table of Content
+
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [DataCompare](#datacompare)
+- [Table of Content](#table-of-content)
+- [Code Samples Preface](#code-samples-preface)
+- [Compare Result Information](#compare-result-information)
+	- [Same](#same)
+	- [Left only](#left-only)
+	- [Right Only](#right-only)
+- [Row Collection](#row-collection)
+- [Config](#config)
+	- [HasHeaders](#hasheaders)
+	- [Key Columns](#key-columns)
+	- [Skipped Columns](#skipped-columns)
+
+<!-- /TOC -->
 
 # Code Samples Preface
 
@@ -22,13 +42,10 @@ If you see `left` and `right` used somewhere with no definition, these are set t
 left = Lists.Default;
 right = Lists.Default;
 ```
-# Row Collection
-
-
 
 # Compare Result Information
 
-### Same
+## Same
 
 Returns true if no differences where found between compared lists.
 
@@ -42,7 +59,7 @@ res1.Same.Should().BeTrue();
 res2.Same.Should().BeFalse();
 ```
 
-### Left only
+## Left only
 
 Contains the rows whose keys were present only in the left list.
 
@@ -56,7 +73,7 @@ res1.LeftOnly.Should().BeEmpty();
 res2.LeftOnly.ShouldBeEquivalentTo(leftExtra.Last());
 ```
 
-### Right Only
+## Right Only
 
 Contains the rows whose keys were present only in the right list.
 
@@ -70,11 +87,20 @@ res1.RightOnly.Should().BeEmpty();
 res2.RightOnly.ShouldBeEquivalentTo(rightExtra.Last());
 ```
 
+# Row Collection
+
+'RowCollection' class represents a collection of rows, and parses first row as header, as well as finds the **Key**, **Skipped** and **Data** column indexes.
+
+N.B. Uses DataComparerConfig.Default if no config is passed in.
+
+
 # Config
 
-The following are the default `DataComparerConfig` settings
+The following are available settings on the `DataComparerConfig` settings class
 
 ## HasHeaders
+
+**THIS IS NOT YET IMPLEMETNED. PLANNED FOR A FUTURE RELEASE!**
 
 Sets wether or not the first row has headers.
 
@@ -82,6 +108,9 @@ Sets wether or not the first row has headers.
 //Default
 HasHeaders = true;
 ```
+
+When parsing a collection with no headers, the comparer will try to convert any `Key`/`Skip` value into an `int`, and if successfulll and is within the range of the row length, it will use this as an index.
+
 
 ## Key Columns
 

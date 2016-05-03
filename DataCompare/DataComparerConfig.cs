@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace DataCompare
@@ -9,6 +10,11 @@ namespace DataCompare
     /// </summary>
     public class DataComparerConfig
     {
+        static DataComparerConfig()
+        {
+            Default = CreateDefault();
+        }
+
         public static DataComparerConfig CreateDefault()
         {
             return new DataComparerConfig
@@ -20,11 +26,19 @@ namespace DataCompare
                 Skip = new HashSet<string>
                 {
                     "ID", "Skip"
-                }
+                },
+                HasHeaders = true,
             };
         }
 
+        public bool HasHeaders
+        {
+            get { return true; }
+            set { if(value == false) throw new NotImplementedException(); }
+        }
         public HashSet<string> Keys { get; set; }
         public HashSet<string> Skip { get; set; }
+        
+        public static DataComparerConfig Default { get; set; }
     }
 }

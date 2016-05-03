@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DataCompare
 {
@@ -13,7 +14,8 @@ namespace DataCompare
             _config = config;
         }
 
-        public CompareResult Compare(IReadOnlyList<IReadOnlyList<string>> left, IReadOnlyList<IReadOnlyList<string>> right)
+        public CompareResult Compare(IReadOnlyList<IReadOnlyList<string>> left,
+            IReadOnlyList<IReadOnlyList<string>> right)
         {
             var leftSorted = _sorter.Sort(left);
             var rightSorted = _sorter.Sort(right);
@@ -21,9 +23,10 @@ namespace DataCompare
             return CompareSorted(leftSorted, rightSorted);
         }
 
-        private CompareResult CompareSorted(IReadOnlyList<IReadOnlyList<string>> left, IReadOnlyList<IReadOnlyList<string>> right)
+        private CompareResult CompareSorted(IReadOnlyList<IReadOnlyList<string>> left,
+            IReadOnlyList<IReadOnlyList<string>> right)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }
