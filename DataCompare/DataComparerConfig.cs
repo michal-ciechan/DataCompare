@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DataCompare.Enums;
 
 namespace DataCompare
 {
@@ -10,35 +11,23 @@ namespace DataCompare
     /// </summary>
     public class DataComparerConfig
     {
-        static DataComparerConfig()
+        public DataComparerConfig()
         {
-            Default = CreateDefault();
-        }
-
-        public static DataComparerConfig CreateDefault()
-        {
-            return new DataComparerConfig
+            Keys = new HashSet<string>
             {
-                Keys = new HashSet<string>
-                {
-                    "Key"
-                },
-                Skip = new HashSet<string>
-                {
-                    "ID", "Skip"
-                },
-                HasHeaders = true,
+                "Key"
+            };
+            Skip = new HashSet<string>
+            {
+                "ID",
+                "Skip"
             };
         }
 
-        public bool HasHeaders
-        {
-            get { return true; }
-            set { if(value == false) throw new NotImplementedException(); }
-        }
         public HashSet<string> Keys { get; set; }
         public HashSet<string> Skip { get; set; }
         
-        public static DataComparerConfig Default { get; set; }
+        public static DataComparerConfig Default => new DataComparerConfig();
+        public DataSource IsSorted { get; set; }
     }
 }

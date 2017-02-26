@@ -1,28 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LightInject;
+﻿
+using SimpleInjector;
 
 namespace DataCompare
 {
     public class IoC
     {
-        private static ServiceContainer _container;
+        private static Container _container;
 
-        public static ServiceContainer Container => 
+        public static Container Container => 
             _container ?? (_container = CreateContainer());
 
 
-        private static ServiceContainer CreateContainer()
+        private static Container CreateContainer()
         {
-            var container = new ServiceContainer();
+            var container = new Container();
 
-            container.RegisterInstance(DataComparerConfig.CreateDefault());
-
+            container.Register(() => DataComparerConfig.Default);
+            container.Register<DataComparer>();
+            container.Register<ISorter, Sorter>();
+            container.Register<IRowComparerFactory, RowComparerFactory>();
+            container.Register<IKeyMapperFactory, KeyMapperFactory>();
+            container.Register<IValueMapperFactory, ValueMapperFactory>();
             
             return container;
         }

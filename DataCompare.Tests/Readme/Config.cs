@@ -16,7 +16,7 @@ namespace DataCompare.Tests.Readme
         [SetUp]
         public void A_TestSetup()
         {
-            _config = DataComparerConfig.CreateDefault();
+            _config = DataComparerConfig.Default;
         }
 
         [Test]
@@ -29,12 +29,6 @@ namespace DataCompare.Tests.Readme
         public void Skip()
         {
             _config.Skip.ShouldBeEquivalentTo(new []{ "ID", "Skip"});
-        }
-
-        [Test]
-        public void HasHeaders()
-        {
-            throw new NotImplementedException("TODO - DONT FORGET READMET");
         }
     }
 }
